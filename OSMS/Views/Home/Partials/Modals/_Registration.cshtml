@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model OSMS.Models.RegistrationModels.RegistrationModel
+<form asp-controller="Home" asp-action="Register" method="post">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registration Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label>Student ID:</label>
+        <input class="form-control" type="text" asp-for="StudentID" />
+        <label>Fullname:</label>
+        <input class="form-control" type="text" asp-for="StudentName" />
+        <label>Standard:</label>
+        <select class="form-control" asp-for="StandardID" asp-items="@Model.StandardList"></select>
+        <label>Password:</label>
+        <input class="form-control" type="password" asp-for="Password" />
+        <label>Confirm Password:</label>
+        <input class="form-control" type="password" asp-for="ConfirmPassword" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>
