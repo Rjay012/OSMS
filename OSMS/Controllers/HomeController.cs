@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using OSMS.Models;
 using OSMS.Models.LoginModels;
 using OSMS.Models.RegistrationModels;
+using OSMS.Services;
 
 namespace OSMS.Controllers
 {
@@ -23,11 +24,12 @@ namespace OSMS.Controllers
     {
         private readonly OSMSContext _context;
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, OSMSContext context)
+        private readonly LoginService _loginService;
+        public HomeController(ILogger<HomeController> logger, OSMSContext context, LoginService loginService)
         {
             _logger = logger;
             _context = context;
+            _loginService = loginService;
         }
 
         public IActionResult Index()
@@ -102,15 +104,11 @@ namespace OSMS.Controllers
 
             if (ModelState.IsValid)
             {
-                bool islogin = _context.Instructors
-                                       .Where(i => i.InstructorID == loginModel.UserID && i.Password == loginModel.Password)
-                                       .Any();
+                bool islogin = _loginService.isLogin("Instructor", loginModel);
                 loginModel.Role = "Instructor";
                 if (islogin == false)
                 {
-                    islogin = _context.Students
-                                      .Where(s => s.StudentID == loginModel.UserID && s.Password == loginModel.Password)
-                                      .Any();
+                    islogin = _loginService.isLogin("Student", loginModel);
                     loginModel.Role = "Student";
                 }
 

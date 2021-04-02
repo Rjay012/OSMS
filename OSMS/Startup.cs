@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using OSMS.CustomHandler;
 using OSMS.Models;
+using OSMS.Services;
 
 namespace OSMS
 {
@@ -48,6 +49,8 @@ namespace OSMS
 
             services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
             services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
+
+            services.AddScoped<LoginService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
